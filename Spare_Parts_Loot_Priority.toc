@@ -4,4 +4,4 @@
 ## Version: 3.1
 
 loot_table.lua
-Spare-Parts-Loot-Priority.lua
+Spare_Parts_Loot_Priority.lua
