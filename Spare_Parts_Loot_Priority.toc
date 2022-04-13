@@ -1,0 +1,7 @@
+## Interface: 20504
+## Title: Spare Parts Loot Priority
+## Author: Sansaan-Westfall
+## Version: 2.2
+
+loot_table.lua
+Spare_Parts_Loot_Priority.lua
