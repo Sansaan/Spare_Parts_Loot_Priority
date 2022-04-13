@@ -9,6 +9,8 @@ function Spare_Parts_Loot_Priority.ItemSearch(itemname)
 end
 
 local split = function (str, pat, limit)
+  --https://stackoverflow.com/users/2150472/benjamin-vison
+  --https://stackoverflow.com/a/60172017
   local t = {}
   local fpat = "(.-)" .. pat
   local last_end = 1
