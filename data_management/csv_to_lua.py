@@ -13,26 +13,33 @@ input_file = 'loot_table.csv'
 lua_file = 'loot_table.lua'
 new_csv_file = 'new.'+input_file
 
+item_database = 'data.json'
+
 # parse args
 parser = argparse.ArgumentParser(description='Create an update LUA loot table from a CSV.')
 
 parser.add_argument('-i', '--input',
                     metavar='filename',
                     action='append',
-                    help='CSV file containing loot priorities')
+                    help='CSV file containing loot priorities. Default: '+input_file)
 
 parser.add_argument('-o', '--output',
                     metavar='filename',
                     action='append',
-                    help='LUA file to be used for the addon. Addon expects filename to be "'+lua_file+'"')
+                    help='LUA file to be used for the addon. Default: '+lua_file)
+
+parser.add_argument('-d', '--database',
+                    metavar='filename',
+                    action='append',
+                    help='json database for item ID lookups. Default: '+item_database)
 
 args = parser.parse_args()
 
 if isinstance(args.input, list):
-    input_file = args.input[0]
     if len(args.input) > 1:
-        parser.error("only open input file (-i) is supported.")
+        parser.error("only one input file (-i) is supported.")
 
+    input_file = args.input[0]
     if os.path.splitext(input_file)[1] != '.csv':
         lua_file = input_file+'.lua'
         new_csv_file = 'new.'+input_file+'.csv'
@@ -41,18 +48,35 @@ if isinstance(args.input, list):
         new_csv_file = 'new.'+input_file
 
 if isinstance(args.output, list):
-    lua_file = args.output[0]
     if len(args.output) > 1:
-        parser.error("only open output file (-o) is supported.")
+        parser.error("only one output file (-o) is supported.")
+    
+    if lua_file != args.output[0]:
+        print('NOTICE: The default addon code expects the LUA file to be named. Be sure to update the addon appropriately.')
 
-loot = pd.read_csv(input_file)
+    lua_file = args.output[0]
+
+if isinstance(args.database, list):
+    if len(args.database) > 1:
+        parser.error("only one database file (-d) is supported.")
+    
+    item_database = args.database[0]
+
+try:
+    loot = pd.read_csv(input_file)
+except:
+    print('ERROR: Unable to open input file.')
+    exit()
 
 if loot['id'].isna().any():
-
     print('\nMissing ID(s) found. Attempting to correct...\n')
 
     # from https://github.com/nexus-devs/wow-classic-items/tree/master/data/json
-    database = pd.read_json('data.json')
+    try:
+        database = pd.read_json(item_database)
+    except:
+        print('ERROR: Unable to open database file.')
+        exit()
     database.set_index('itemId',inplace=True)
 
     for ind in loot.index:
@@ -84,20 +108,16 @@ if loot['id'].isna().any():
 
 with open(lua_file, 'w') as output_file:
     print('spare_parts_loot_table = {', file=output_file)
-
     for index,item in loot.iterrows():
-
         loot_id = str(item['id'])
         loot_name = str(item['name'])
         prio = str(item['prio'])
         loot_zone = str(item['zone'])
         loot_bosses = str(item['boss'])
-
         print ('    {["loot_id"] = "'+loot_id+
-        '",["loot_name"] = "'+loot_name+
-        '",["prio"] = "'+prio+
-        '",["loot_zone"] = "'+loot_zone+
-        '",["loot_bosses"] = "'+loot_bosses+
-        '",},', file=output_file)
-
+            '",["loot_name"] = "'+loot_name+
+            '",["prio"] = "'+prio+
+            '",["loot_zone"] = "'+loot_zone+
+            '",["loot_bosses"] = "'+loot_bosses+
+            '",},', file=output_file)
     print('}', file=output_file)
