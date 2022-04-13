@@ -1,4 +1,6 @@
-function ItemSearch(itemname)
+Spare_Parts_Loot_Priority = {}
+
+function Spare_Parts_Loot_Priority.ItemSearch(itemname)
     for index, value in next, spare_parts_loot_table do
         if value["loot_id"] == itemname then
             return value["prio"]
@@ -6,7 +8,7 @@ function ItemSearch(itemname)
     end
 end
 
-function split (str, pat, limit)
+local split = function (str, pat, limit)
   local t = {}
   local fpat = "(.-)" .. pat
   local last_end = 1
@@ -32,11 +34,11 @@ function split (str, pat, limit)
   return t
 end
 
-function MakeTooltip(tooltip, ...)
+function Spare_Parts_Loot_Priority.MakeTooltip(tooltip, ...)
   local itemname, itemlink = tooltip:GetItem()
   
   if itemlink then
-    priority = ItemSearch(itemlink:match("item:(%d+):"))
+    priority = Spare_Parts_Loot_Priority.ItemSearch(itemlink:match("item:(%d+):"))
 
     color_dots = "47FAF6"
     color_title = "FA83F5"
@@ -60,5 +62,5 @@ function MakeTooltip(tooltip, ...)
   end
 end
 
-GameTooltip:HookScript("OnTooltipSetItem", MakeTooltip)
-ItemRefTooltip:HookScript("OnTooltipSetItem", MakeTooltip)
+GameTooltip:HookScript("OnTooltipSetItem", Spare_Parts_Loot_Priority.MakeTooltip)
+ItemRefTooltip:HookScript("OnTooltipSetItem", Spare_Parts_Loot_Priority.MakeTooltip)
