@@ -62,5 +62,8 @@ function Spare_Parts_Loot_Priority.MakeTooltip(tooltip, ...)
   end
 end
 
+-- hover tooltip
 GameTooltip:HookScript("OnTooltipSetItem", Spare_Parts_Loot_Priority.MakeTooltip)
+
+-- link click tooltip
 ItemRefTooltip:HookScript("OnTooltipSetItem", Spare_Parts_Loot_Priority.MakeTooltip)

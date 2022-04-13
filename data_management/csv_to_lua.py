@@ -106,18 +106,24 @@ if loot['id'].isna().any():
     print('\nUpdated CSV saved to new.loot_table.csv')
     loot.to_csv(new_csv_file,index=False)    
 
-with open(lua_file, 'w') as output_file:
-    print('spare_parts_loot_table = {', file=output_file)
-    for index,item in loot.iterrows():
-        loot_id = str(item['id'])
-        loot_name = str(item['name'])
-        prio = str(item['prio'])
-        loot_zone = str(item['zone'])
-        loot_bosses = str(item['boss'])
-        print ('    {["loot_id"] = "'+loot_id+
-            '",["loot_name"] = "'+loot_name+
-            '",["prio"] = "'+prio+
-            '",["loot_zone"] = "'+loot_zone+
-            '",["loot_bosses"] = "'+loot_bosses+
-            '",},', file=output_file)
-    print('}', file=output_file)
+print("Writing LUA table to "+lua_file+"...")
+try:
+    with open(lua_file, 'w') as output_file:
+        print('spare_parts_loot_table = {', file=output_file)
+        for index,item in loot.iterrows():
+            loot_id = str(item['id'])
+            loot_name = str(item['name'])
+            prio = str(item['prio'])
+            loot_zone = str(item['zone'])
+            loot_bosses = str(item['boss'])
+            print ('    {["loot_id"] = "'+loot_id+
+                '",["loot_name"] = "'+loot_name+
+                '",["prio"] = "'+prio+
+                '",["loot_zone"] = "'+loot_zone+
+                '",["loot_bosses"] = "'+loot_bosses+
+                '",},', file=output_file)
+        print('}', file=output_file)
+except:
+    print("ERROR: unable to write to "+lua_file)
+else:
+    print("LUA file updated!\nRemember to copy it to your Interface\\AddOns\\Spare_Parts_Loot_Priority directory")
