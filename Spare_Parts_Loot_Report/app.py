@@ -19,7 +19,6 @@ ALLOWED_EXTENSIONS = {'txt', 'csv'}
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'for dev use only, please change')
-print(app.secret_key)
 
 def encode_from_df(df):
     return str(base64.b64encode(df.to_json().encode('utf-8')))[2:-1]
