@@ -1,0 +1,79 @@
+.flash {
+    font-weight: bold;
+    background-color: #f3f3f3;
+    border:0px;
+    border-radius: 10px;
+    padding:5px; margin:5px 0 10px 0;
+    width:fit-content;
+}
+.error {
+    color:red;
+}
+.success {
+    color:green;
+}
+
+.dataframe, .reportframe {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    min-width: 600px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.dataframe thead tr, .dataframe thead tr th, .reportframe thead tr, .reportframe thead tr th {
+    background-color: #315b53;
+    color: #ffffff;
+    text-align: left;
+}
+
+.dataframe th, .dataframe td, .reportframe th, .reportframe td {
+    padding: 8px 10px;
+}
+
+.dataframe tbody tr, .reportframe tbody {
+    border-bottom: 1px solid #315b53;
+}
+
+.reportframe tr:nth-of-type(odd) {
+    background-color: #315b53;
+}
+
+.dataframe tbody tr:nth-of-type(even), .reportframe tbody:nth-of-type(even) {
+    background-color: #f0f0f0;
+}
+
+.dataframe tr:hover, .reportframe tbody:hover {
+    /*font-weight: bold;*/
+    color: #009879;
+}
+
+.reportframe tbody tr:first-of-type td {
+    color:#fff;
+}
+
+.reportframe .item-count {
+    vertical-align: top;
+}
+
+.reportframe tbody tr:first-of-type td.item-count-0 {
+    color:#315b53;
+}
+
+ul.role-count, ul.role-count li {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+}
+ul.role-count li {
+    margin-left:20px;
+}
+
+#search {
+    width:350px;
+}
+
+.clearbutton {
+    font-size:0.7em;
+}

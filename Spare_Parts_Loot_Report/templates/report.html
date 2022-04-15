@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block body %}
+
+  <strong>Date Range:</strong> {{ start_date }} to {{ end_date }}<br/><br/>
+
+  <strong>Characters:</strong> {{ character_count }}<br/><br/>
+
+  <strong>Roles:</strong><ul class="role-count">
+  {% for role in role_count %}
+    <li><strong>{{ role }}:</strong> {{ role_count[role] }}</li>
+  {% endfor %}
+  </ul>
+  <br/>
+  <input type="text" id="search" placeholder="Type to search">
+  <a onclick="document.getElementById('search').value = ''; $rows.show()" class="clearbutton">(reset)</a>
+  <table border="1" class="reportframe">
+  {% for character in character_role_count %}
+    <tbody>
+    <tr>
+        <td><strong>{{ character }}</strong></td>
+        {% set role='Main Spec' %} <td class="item-count item-count-{{ character_role_count[character][role] }}">{{ role }} : {{ character_role_count[character][role] }}</td>
+        {% set role='Off Spec' %} <td class="item-count item-count-{{ character_role_count[character][role] }}">{{ role }} : {{ character_role_count[character][role] }}</td>
+        {% set role='Upgrade' %} <td class="item-count item-count-{{ character_role_count[character][role] }}">{{ role }} : {{ character_role_count[character][role] }}</td>
+    </tr>
+    <tr class="item-row">
+        {% set role='Total' %} <td class="item-count item-count-{{ character_role_count[character][role] }}">{{ role }} : {{ character_role_count[character][role] }}</td>
+        <td colspan="{{character_role_count[character]|length - 1}}">
+    {% for item in character_loot[character] %}
+    {{ item }}<br/>
+    {% endfor %}
+    <br/></td></tr></tbody>
+  {% endfor %}
+  </table>
+
+  {% endblock %}

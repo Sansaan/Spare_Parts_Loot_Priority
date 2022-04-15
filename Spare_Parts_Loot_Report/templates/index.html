@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block body %}
+  <strong>Upload most recent CSV export from RCLC.</strong><br/>
+  <br/>
+  <form action="{{next}}" method="POST" enctype="multipart/form-data">
+    You can paste the exported CSV directly into this field:<br/>
+    <textarea name="csv_string" cols="60" rows="10"></textarea><br/>
+    <br/>
+    <br/>
+    Or upload a saved file here:<br/>
+    <br/>
+    <input type="file" name="csv_file"/><br/>
+    <br/>
+    <br/>
+    <input type="submit" value="Parse CSV"/>
+  </form>
+{% endblock %}
