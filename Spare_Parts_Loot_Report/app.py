@@ -15,6 +15,7 @@ title = 'Spare Parts Loot Council Distribution Report'
 ALLOWED_EXTENSIONS = {'txt', 'csv'}
 
 app = Flask(__name__)
+app.secret_key = 'iCEXkoT|1dS^fW*p@c!ntBi;vl|H=_tJ8N$@'
 
 def encode_from_df(df):
     return str(base64.b64encode(df.to_json().encode('utf-8')))[2:-1]
@@ -46,7 +47,7 @@ def cleanup(df):
     df.drop(df.index[df['Response'] == 'Disenchant'], inplace=True)
     df.drop(df.index[df['Response'] == 'Banking'], inplace=True)
 
-    roles = pd.read_csv('rolemap.csv')
+    roles = pd.read_csv(os.path.join(app.root_path, 'rolemap.csv'))
     roles.set_index('player', inplace=True)
 
     df['Role'] = df['Player'].map(roles.to_dict()['role'])
@@ -207,4 +208,5 @@ def report():
         )
 
 if __name__ == '__main__':
-	app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+	app.run(debug=False)
+
