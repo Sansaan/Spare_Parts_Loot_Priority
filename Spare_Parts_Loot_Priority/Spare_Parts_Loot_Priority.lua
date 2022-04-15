@@ -42,8 +42,8 @@ function Spare_Parts_Loot_Priority.MakeTooltip(tooltip, ...)
   if itemlink then
     priority = Spare_Parts_Loot_Priority.ItemSearch(itemlink:match("item:(%d+):"))
 
-    color_dots = "47FAF6"
-    color_title = "FA83F5"
+    color_dots = "47faf6"
+    color_title = "fa83f5"
     color_prio = "ffa60c"
     
     if priority then
