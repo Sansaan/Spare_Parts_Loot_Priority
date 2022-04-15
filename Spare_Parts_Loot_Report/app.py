@@ -1,7 +1,7 @@
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-from flask import Flask, url_for, request, redirect, render_template, Markup, flash
+from flask import Flask, url_for, request, redirect, render_template, Markup, flash # type: ignore
 
 import pandas as pd
 import datetime as dt
@@ -9,7 +9,7 @@ import base64
 import os
 from io import StringIO
 
-from dotenv import load_dotenv
+from dotenv import load_dotenv # type: ignore
 load_dotenv()
 
 persistent_data = True
