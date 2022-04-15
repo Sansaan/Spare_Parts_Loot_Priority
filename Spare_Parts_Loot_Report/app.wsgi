@@ -2,7 +2,7 @@ import sys
 import os
 
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(os.path.join(os.path.abspath(os.path.dirname(__file__)), '.env'))
 
 path = os.getenv('APP_PATH')
 
