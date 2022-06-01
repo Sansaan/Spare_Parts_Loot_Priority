@@ -38,22 +38,22 @@ end
 
 function Spare_Parts_Loot_Priority.MakeTooltip(tooltip, ...)
   local itemname, itemlink = tooltip:GetItem()
-  
-  if itemlink then
-    priority = Spare_Parts_Loot_Priority.ItemSearch(itemlink:match("item:(%d+):"))
 
-    color_dots = "47faf6"
-    color_title = "fa83f5"
-    color_prio = "ffa60c"
-    
+  if itemlink then
+    local priority = Spare_Parts_Loot_Priority.ItemSearch(itemlink:match("item:(%d+):"))
+
+    local color_dots = "47faf6"
+    local color_title = "fa83f5"
+    local color_prio = "ffa60c"
+
     if priority then
-      headfoot = string.format("|c00"..color_dots.."*****************************")
-      spacer = string.format("|c00"..color_dots.."*")
-      title = string.format("|c00"..color_dots.."*|c00"..color_title.."  Spare Parts Loot Priority:")
+      local headfoot = string.format("|c00"..color_dots.."*****************************")
+      local spacer = string.format("|c00"..color_dots.."*")
+      local title = string.format("|c00"..color_dots.."*|c00"..color_title.."  Spare Parts Loot Priority:")
       tooltip:AddLine(headfoot)
       tooltip:AddLine(title)
 
-      priolist = split(priority, " > ")
+      local priolist = split(priority, " > ")
       for i,prio in ipairs(priolist) do
         tooltip:AddLine(string.format("|c00"..color_dots.."*|c00"..color_prio.."      %s", prio))
       end
